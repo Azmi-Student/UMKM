@@ -20,8 +20,17 @@
         // Fungsi untuk toggle menu pada mobile
         function toggleMenu() {
             const menu = document.getElementById('mobile-menu');
+            const hamburgerIcon = document.getElementById("hamburger");
+            const closeIcon = document.getElementById("close-icon");
+
+            // Toggle visibility dari menu mobile
             menu.classList.toggle('hidden');
+
+            // Toggle antara ikon hamburger dan ikon close
+            hamburgerIcon.classList.toggle('hidden');
+            closeIcon.classList.toggle('hidden');
         }
+
 
         // Fungsi untuk toggle lokasi dropdown
         function toggleLocation() {
@@ -78,18 +87,27 @@
 <body class="bg-white">
 
     <!-- Navbar -->
-    <nav class="bg-white">
+    <nav class="bg-white sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
             <!-- Kiri: Hamburger + Logo (di mobile/tablet) -->
             <div class="flex items-center gap-3">
                 <!-- Icon Hamburger untuk Mobile dan Tablet (di sebelah kiri) -->
                 <button class="lg:hidden text-gray-700" onclick="toggleMenu()">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
+                    <!-- Ikon Hamburger -->
+                    <svg id="hamburger" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M4 6h16M4 12h16M4 18h16" />
                     </svg>
+
+                    <!-- Ikon Close (X) -->
+                    <svg id="close-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
                 </button>
+
 
                 <!-- Logo (di mobile/tablet setelah hamburger) -->
                 <img src="images/logo.svg" alt="GoFood Logo" class="h-10">
@@ -221,194 +239,295 @@
 
 
     <section class="py-24 mt-20">
-    <div class="max-w-7xl mx-auto px-6">
-        <!-- Title -->
-        <h2 class="text-3xl font-normal text-[#EF4400] font-[Anton] mb-8 text-center">
-            PILIH KATEGORI UMKM
-        </h2>
+        <div class="max-w-7xl mx-auto px-6">
+            <!-- Title -->
+            <h2 class="text-3xl font-normal text-[#EF4400] font-[Anton] mb-8 text-center">
+                PILIH KATEGORI UMKM
+            </h2>
 
-        <!-- Filter Kategori -->
+            <!-- Filter Kategori -->
             <div
                 class="flex flex-nowrap sm:flex-wrap overflow-x-auto pb-4 sm:pb-0 justify-center items-center space-x-4 sm:space-x-8 mb-8 no-scrollbar">
                 <!-- Tombol Filter Semua Kategori -->
                 <button onclick="filterCategory('semua')" class="flex flex-col items-center text-[#EF4400] shrink-0">
-                    <img src="images/store-icon.png" alt="Semua" class="w-10 h-10 mb-2">
+                    <img src="images/store-icon.svg" alt="Semua" class="w-10 h-10 mb-2">
                     <span class="font-bold text-xs sm:text-base">Semua</span>
                 </button>
 
                 <!-- Tombol Filter Makanan -->
                 <button onclick="filterCategory('makanan')" class="flex flex-col items-center text-[#EF4400]">
-                    <img src="images/food-icon.png" alt="Makanan" class="w-10 h-10 mb-2">
+                    <img src="images/food-icon.svg" alt="Makanan" class="w-10 h-10 mb-2">
                     <span class="font-bold text-xs sm:text-base">Makanan</span>
                 </button>
 
                 <!-- Tombol Filter Minuman -->
                 <button onclick="filterCategory('minuman')" class="flex flex-col items-center text-[#EF4400]">
-                    <img src="images/drink-icon.png" alt="Minuman" class="w-10 h-10 mb-2">
+                    <img src="images/drink-icon.svg" alt="Minuman" class="w-10 h-10 mb-2">
                     <span class="font-bold text-xs sm:text-base">Minuman</span>
                 </button>
 
                 <!-- Tombol Filter Jasa -->
                 <button onclick="filterCategory('jasa')" class="flex flex-col items-center text-[#EF4400]">
-                    <img src="images/jasa-icon.png" alt="Jasa" class="w-10 h-10 mb-2">
+                    <img src="images/jasa-icon.svg" alt="Jasa" class="w-10 h-10 mb-2">
                     <span class="font-bold text-xs sm:text-base">Jasa</span>
                 </button>
 
-                <!-- Tombol Filter Lainnya -->
-                <button onclick="filterCategory('lainnya')" class="flex flex-col items-center text-[#EF4400]">
-                    <img src="images/another-icon.png" alt="Lainnya" class="w-10 h-10 mb-2">
-                    <span class="font-bold text-xs sm:text-base">Lainnya</span>
+                <!-- Tombol Filter fashion -->
+                <button onclick="filterCategory('fashion')" class="flex flex-col items-center text-[#EF4400]">
+                    <img src="images/fashion-icon.svg" alt="fashion" class="w-10 h-10 mb-2">
+                    <span class="font-bold text-xs sm:text-base">fashion</span>
                 </button>
             </div>
 
 
-        <!-- UMKM Cards Filtered -->
-        <div id="umkm-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            <!-- Contoh Card -->
-            <div class="umkm-card makanan bg-white p-4 rounded-lg shadow-lg border-2 border-[#EF4400] flex flex-col h-full">
-                <div class="relative mb-4">
-                    <img src="images/umkm-makanan1.svg" alt="Makanan" class="w-full h-40 object-cover rounded-md">
-                    <div class="absolute top-4 right-4 bg-[#EF4400] text-white text-xs font-semibold px-3 py-1 rounded-full z-10">
-                        Makanan
+            <!-- UMKM Cards Filtered -->
+            <div id="umkm-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Contoh Card -->
+                <div class="umkm-card makanan bg-white rounded-lg shadow-lg border-2 flex flex-col h-full pb-4">
+                    <div class="relative mb-4">
+                        <!-- Gambar tanpa padding, agar mengisi penuh area card -->
+                        <img src="images/umkm-makanan1.svg" alt="Makanan"
+                            class="w-full h-50 object-cover rounded-tl-md rounded-tr-md">
+                        <div
+                            class="absolute top-4 right-4 bg-[#EF4400] text-white text-xs font-semibold px-3 py-1 rounded-full z-10">
+                            Makanan
+                        </div>
                     </div>
-                </div>
-                <h3 class="text-xl font-normal text-[#EF4400] font-[Anton] mb-2">Warung Sate</h3>
-                <p class="text-gray-500 mb-2">Sate Ayam dan Kambing Lezat</p>
-                <div class="flex items-center text-gray-400 text-sm mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="currentColor" viewBox="0 0 24 24" stroke="currentColor">
-                        <path fill="currentColor" fill-rule="evenodd"
-                            d="M12 2c4.505.021 7.956 3.809 8 8.174l-.018.001H20c.04 3.38-2.505 7.261-7.322 11.57-.19.17-.434.255-.678.255-.244 0-.488-.085-.679-.256-4.814-4.308-7.359-8.189-7.319-11.568L4 10.175C4.043 5.81 7.495 2.021 12 2Zm0 10a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                    <span>500m</span>
-                </div>
-                <button class="mt-auto bg-[#EF4400] text-white py-2 px-4 rounded-lg w-full">Lihat Detail</button>
-            </div>
-            <!-- Minuman Card -->
-            <div class="umkm-card minuman bg-white p-4 rounded-lg shadow-lg border-2 border-[#EF4400] flex flex-col">
-                <div class="relative mb-4">
-                    <img src="images/umkm-minuman1.svg" alt="Minuman" class="w-full h-40 object-cover rounded-md">
-                    <div class="absolute top-4 right-4 bg-blue-100 text-blue-600 text-xs font-semibold px-3 py-1 rounded-full z-10">
-                        Minuman
-                    </div>
-                </div>
-                <h3 class="text-xl font-normal text-[#EF4400] font-[Anton] mb-2">Coffee Shop</h3>
-                <p class="text-gray-500 mb-2">Kopi & Teh Segar</p>
-                <div class="flex items-center text-gray-400 text-sm mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="currentColor" viewBox="0 0 24 24" stroke="currentColor">
-                        <path fill="currentColor" fill-rule="evenodd"
-                            d="M12 2c4.505.021 7.956 3.809 8 8.174l-.018.001H20c.04 3.38-2.505 7.261-7.322 11.57-.19.17-.434.255-.678.255-.244 0-.488-.085-.679-.256-4.814-4.308-7.359-8.189-7.319-11.568L4 10.175C4.043 5.81 7.495 2.021 12 2Zm0 10a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                    <span>1km</span>
-                </div>
-                <button class="mt-auto bg-[#EF4400] text-white py-2 px-4 rounded-lg w-full">Lihat Detail</button>
-            </div>
 
-            <!-- Fashion Card -->
-            <div class="umkm-card fashion bg-white p-4 rounded-lg shadow-lg border-2 border-[#EF4400] flex flex-col">
-                <div class="relative mb-4">
-                    <img src="images/umkm-lainnya1.svg" alt="Fashion" class="w-full h-40 object-cover rounded-md">
-                    <div class="absolute top-4 right-4 bg-pink-100 text-pink-600 text-xs font-semibold px-3 py-1 rounded-full z-10">
-                        Fashion
-                    </div>
-                </div>
-                <h3 class="text-xl font-normal text-[#EF4400] font-[Anton] mb-2">Toko Pakaian</h3>
-                <p class="text-gray-500 mb-2">Pakaian Pria dan Wanita</p>
-                <div class="flex items-center text-gray-400 text-sm mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="currentColor" viewBox="0 0 24 24" stroke="currentColor">
-                        <path fill="currentColor" fill-rule="evenodd"
-                            d="M12 2c4.505.021 7.956 3.809 8 8.174l-.018.001H20c.04 3.38-2.505 7.261-7.322 11.57-.19.17-.434.255-.678.255-.244 0-.488-.085-.679-.256-4.814-4.308-7.359-8.189-7.319-11.568L4 10.175C4.043 5.81 7.495 2.021 12 2Zm0 10a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                    <span>3km</span>
-                </div>
-                <button class="mt-auto bg-[#EF4400] text-white py-2 px-4 rounded-lg w-full">Lihat Detail</button>
-            </div>
+                    <!-- Judul dan Deskripsi -->
+                    <h3 class="text-xl font-normal text-[#EF4400] font-[Anton] mb-2 px-4">Warung Sate</h3>
+                    <!-- Menambahkan padding -->
+                    <p class="text-gray-500 mb-2 px-4">Sate Ayam dan Kambing Lezat</p> <!-- Menambahkan padding -->
 
-            <!-- Jasa Card -->
-            <div class="umkm-card jasa bg-white p-4 rounded-lg shadow-lg border-2 border-[#EF4400] flex flex-col">
-                <div class="relative mb-4">
-                    <img src="images/umkm-jasa1.svg" alt="Jasa" class="w-full h-40 object-cover rounded-md">
-                    <div class="absolute top-4 right-4 bg-green-100 text-green-600 text-xs font-semibold px-3 py-1 rounded-full z-10">
-                        Jasa
+                    <!-- Rating -->
+                    <div class="flex items-center text-sm text-gray-600 mb-2 px-4"> <!-- Menambahkan padding -->
+                        <!-- Bintang Rating -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-yellow-500 mr-1" fill="currentColor"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 17.27l6.18 3.73-1.64-7.03 5.45-4.73-7.19-.61L12 2 9.2 9.63l-7.19 .61 5.45 4.73-1.64 7.03z">
+                            </path>
+                        </svg>
+                        <span class="font-semibold">4.5</span> <!-- Rating -->
+                    </div>
+
+                    <!-- Tombol Lihat Detail dengan Ikon Panah -->
+                    <div class="flex justify-between items-center mt-auto px-4"> <!-- Menambahkan padding -->
+                        <button
+                            class="flex items-center bg-[#EF4400] text-white px-2 py-1 rounded-md hover:bg-[#F46100] focus:outline-none focus:ring-2 focus:ring-[#F46100]">
+                            <span class="font-bold text-xs">Lihat Detail</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 ml-2" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M10 6l6 6-6 6" />
+                            </svg>
+                        </button>
+
+                        <!-- Icon Lokasi dan Jarak -->
+                        <div class="flex items-center text-sm text-gray-600 ml-4">
+                            <!-- Ikon Lokasi -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="currentColor"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path fill="currentColor" fill-rule="evenodd"
+                                    d="M12 2c4.505.021 7.956 3.809 8 8.174l-.018.001H20c.04 3.38-2.505 7.261-7.322 11.57-.19.17-.434.255-.678.255-.244 0-.488-.085-.679-.256-4.814-4.308-7.359-8.189-7.319-11.568L4 10.175C4.043 5.81 7.495 2.021 12 2Zm0 10a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            <span>1.2 km</span> <!-- Jarak -->
+                        </div>
                     </div>
                 </div>
-                <h3 class="text-xl font-normal text-[#EF4400] font-[Anton] mb-2">Layanan Cuci Mobil</h3>
-                <p class="text-gray-500 mb-2">Pencucian Mobil Terpercaya</p>
-                <div class="flex items-center text-gray-400 text-sm mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="currentColor" viewBox="0 0 24 24" stroke="currentColor">
-                        <path fill="currentColor" fill-rule="evenodd"
-                            d="M12 2c4.505.021 7.956 3.809 8 8.174l-.018.001H20c.04 3.38-2.505 7.261-7.322 11.57-.19.17-.434.255-.678.255-.244 0-.488-.085-.679-.256-4.814-4.308-7.359-8.189-7.319-11.568L4 10.175C4.043 5.81 7.495 2.021 12 2Zm0 10a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                    <span>2.5km</span>
+
+
+
+
+                <!-- Minuman Card -->
+                <div class="umkm-card minuman bg-white rounded-lg shadow-lg border-2 flex flex-col h-full pb-4">
+                    <div class="relative mb-4">
+                        <!-- Gambar tanpa padding, agar mengisi penuh area card -->
+                        <img src="images/umkm-minuman1.svg" alt="Minuman"
+                            class="w-full h-50 object-cover rounded-tl-md rounded-tr-md">
+                        <div
+                            class="absolute top-4 right-4 bg-blue-100 text-blue-600 text-xs font-semibold px-3 py-1 rounded-full z-10">
+                            Minuman
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-normal text-[#EF4400] font-[Anton] mb-2 px-4">Coffee Shop</h3>
+                    <p class="text-gray-500 mb-2 px-4">Kopi & Teh Segar</p>
+
+                    <!-- Rating -->
+                    <div class="flex items-center text-sm text-gray-600 mb-2 px-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-yellow-500 mr-1" fill="currentColor"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 17.27l6.18 3.73-1.64-7.03 5.45-4.73-7.19-.61L12 2 9.2 9.63l-7.19 .61 5.45 4.73-1.64 7.03z">
+                            </path>
+                        </svg>
+                        <span class="font-semibold">4.5</span> <!-- Rating -->
+                    </div>
+
+                    <!-- Tombol Lihat Detail dengan Ikon Panah -->
+                    <div class="flex justify-between items-center mt-auto px-4">
+                        <button
+                            class="flex items-center bg-[#EF4400] text-white px-2 py-1 rounded-md hover:bg-[#F46100] focus:outline-none focus:ring-2 focus:ring-[#F46100]">
+                            <span class="font-bold text-xs">Lihat Detail</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 ml-2" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M10 6l6 6-6 6" />
+                            </svg>
+                        </button>
+
+                        <!-- Icon Lokasi dan Jarak -->
+                        <div class="flex items-center text-sm text-gray-600 ml-4">
+                            <!-- Ikon Lokasi -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="currentColor"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path fill="currentColor" fill-rule="evenodd"
+                                    d="M12 2c4.505.021 7.956 3.809 8 8.174l-.018.001H20c.04 3.38-2.505 7.261-7.322 11.57-.19.17-.434.255-.678.255-.244 0-.488-.085-.679-.256-4.814-4.308-7.359-8.189-7.319-11.568L4 10.175C4.043 5.81 7.495 2.021 12 2Zm0 10a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            <span>1km</span> <!-- Jarak -->
+                        </div>
+                    </div>
                 </div>
-                <button class="mt-auto bg-[#EF4400] text-white py-2 px-4 rounded-lg w-full">Lihat Detail</button>
+
+                <!-- Fashion Card -->
+                <div class="umkm-card fashion bg-white rounded-lg shadow-lg border-2 flex flex-col h-full pb-4">
+                    <div class="relative mb-4">
+                        <img src="images/umkm-fashion1.svg" alt="Fashion"
+                            class="w-full h-50 object-cover rounded-tl-md rounded-tr-md">
+                        <div
+                            class="absolute top-4 right-4 bg-pink-100 text-pink-600 text-xs font-semibold px-3 py-1 rounded-full z-10">
+                            Fashion
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-normal text-[#EF4400] font-[Anton] mb-2 px-4">Toko Pakaian</h3>
+                    <p class="text-gray-500 mb-2 px-4">Pakaian Pria dan Wanita</p>
+
+                    <!-- Rating -->
+                    <div class="flex items-center text-sm text-gray-600 mb-2 px-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-yellow-500 mr-1" fill="currentColor"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 17.27l6.18 3.73-1.64-7.03 5.45-4.73-7.19-.61L12 2 9.2 9.63l-7.19 .61 5.45 4.73-1.64 7.03z">
+                            </path>
+                        </svg>
+                        <span class="font-semibold">4.0</span> <!-- Rating -->
+                    </div>
+
+                    <!-- Tombol Lihat Detail dengan Ikon Panah -->
+                    <div class="flex justify-between items-center mt-auto px-4">
+                        <button
+                            class="flex items-center bg-[#EF4400] text-white px-2 py-1 rounded-md hover:bg-[#F46100] focus:outline-none focus:ring-2 focus:ring-[#F46100]">
+                            <span class="font-bold text-xs">Lihat Detail</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 ml-2" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M10 6l6 6-6 6" />
+                            </svg>
+                        </button>
+
+                        <!-- Icon Lokasi dan Jarak -->
+                        <div class="flex items-center text-sm text-gray-600 ml-4">
+                            <!-- Ikon Lokasi -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="currentColor"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path fill="currentColor" fill-rule="evenodd"
+                                    d="M12 2c4.505.021 7.956 3.809 8 8.174l-.018.001H20c.04 3.38-2.505 7.261-7.322 11.57-.19.17-.434.255-.678.255-.244 0-.488-.085-.679-.256-4.814-4.308-7.359-8.189-7.319-11.568L4 10.175C4.043 5.81 7.495 2.021 12 2Zm0 10a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            <span>3km</span> <!-- Jarak -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Jasa Card -->
+                <div class="umkm-card jasa bg-white rounded-lg shadow-lg border-2 flex flex-col h-full pb-4">
+                    <div class="relative mb-4">
+                        <img src="images/umkm-jasa1.svg" alt="Jasa"
+                            class="w-full h-50 object-cover rounded-tl-md rounded-tr-md">
+                        <div
+                            class="absolute top-4 right-4 bg-green-100 text-green-600 text-xs font-semibold px-3 py-1 rounded-full z-10">
+                            Jasa
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-normal text-[#EF4400] font-[Anton] mb-2 px-4">Layanan Cuci Mobil</h3>
+                    <p class="text-gray-500 mb-2 px-4">Pencucian Mobil Terpercaya</p>
+
+                    <!-- Rating -->
+                    <div class="flex items-center text-sm text-gray-600 mb-2 px-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-yellow-500 mr-1" fill="currentColor"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 17.27l6.18 3.73-1.64-7.03 5.45-4.73-7.19-.61L12 2 9.2 9.63l-7.19 .61 5.45 4.73-1.64 7.03z">
+                            </path>
+                        </svg>
+                        <span class="font-semibold">4.8</span> <!-- Rating -->
+                    </div>
+
+                    <!-- Tombol Lihat Detail dengan Ikon Panah -->
+                    <div class="flex justify-between items-center mt-auto px-4">
+                        <button
+                            class="flex items-center bg-[#EF4400] text-white px-2 py-1 rounded-md hover:bg-[#F46100] focus:outline-none focus:ring-2 focus:ring-[#F46100]">
+                            <span class="font-bold text-xs">Lihat Detail</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 ml-2" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M10 6l6 6-6 6" />
+                            </svg>
+                        </button>
+
+                        <!-- Icon Lokasi dan Jarak -->
+                        <div class="flex items-center text-sm text-gray-600 ml-4">
+                            <!-- Ikon Lokasi -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="currentColor"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path fill="currentColor" fill-rule="evenodd"
+                                    d="M12 2c4.505.021 7.956 3.809 8 8.174l-.018.001H20c.04 3.38-2.505 7.261-7.322 11.57-.19.17-.434.255-.678.255-.244 0-.488-.085-.679-.256-4.814-4.308-7.359-8.189-7.319-11.568L4 10.175C4.043 5.81 7.495 2.021 12 2Zm0 10a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            <span>2.5km</span> <!-- Jarak -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- Button Lihat UMKM Lainnya -->
+            <div class="text-center mt-8">
+                <a href="#"
+                    class="text-orange-500 py-2 px-6 rounded-full text-lg font-semibold flex items-center justify-center mx-auto">
+                    Lihat UMKM Lainnya
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </a>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<script>
-    // Fungsi filter kategori
-    function filterCategory(category) {
-        const umkmCards = document.querySelectorAll('.umkm-card');
-        
-        if (category === 'semua') {
-            umkmCards.forEach(card => {
-                card.classList.remove('hidden');
-            });
-        } else {
-            umkmCards.forEach(card => {
-                if (!card.classList.contains(category)) {
-                    card.classList.add('hidden');
-                } else {
+    <script>
+        // Fungsi filter kategori
+        function filterCategory(category) {
+            const umkmCards = document.querySelectorAll('.umkm-card');
+
+            if (category === 'semua') {
+                umkmCards.forEach(card => {
                     card.classList.remove('hidden');
-                }
-            });
+                });
+            } else {
+                umkmCards.forEach(card => {
+                    if (!card.classList.contains(category)) {
+                        card.classList.add('hidden');
+                    } else {
+                        card.classList.remove('hidden');
+                    }
+                });
+            }
         }
-    }
-</script>
+    </script>
 
-<!-- CSS untuk filter -->
-<style>
-    .filter-btn {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        transition: all 0.3s ease;
-        cursor: pointer;
-    }
-
-    .filter-btn:hover {
-        background-color: #F46100;
-    }
-
-    .filter-btn img {
-        max-width: 40px;
-        max-height: 40px;
-    }
-
-    .filter-btn:active {
-        transform: scale(0.95);
-    }
-
-    @media (max-width: 640px) {
-        .filter-btn {
-            width: 60px;
-            height: 60px;
-        }
-        .filter-btn img {
-            max-width: 30px;
-            max-height: 30px;
-        }
-    }
-</style>
 
 
     <!-- Kontak Section -->
@@ -522,4 +641,3 @@
 </body>
 
 </html>
-
